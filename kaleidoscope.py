@@ -4,6 +4,7 @@ import sys
 class HVisitor(plyplus.STransformer):
   def __init__(self):
     super().__init__()
+    self.output = []
 
   
 

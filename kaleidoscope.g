@@ -1,12 +1,13 @@
-start: expression;
+start: function;
 
-// function: 'def' '.+' '\(' argumentos '\)' '{' (expression ';')+ '}';
-// argumentos: variable | variable ',' argumentos;
-// variable: '[a-zA-Z_\.][\w_]*';
+function: functiondefinition variable '\(' argumentos '\)' '{' expression+ '}';
+argumentos: variable | variable ',' argumentos;
+variable: '[a-zA-Z_\.][\w_]*';
 expression: term | expression ('\+'|'-'| conjuncion | disyuncion) term;
 
 term: factor | term '\*' factor | term '/' factor;
 
+functiondefinition: 'def';
 factor: numeroentero | bool | '-' factor | '¬' factor | '~' factor | '\(' expression '\)';
 bool: 'true' | 'false';
 conjuncion: '&&';
