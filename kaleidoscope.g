@@ -1,4 +1,4 @@
-start: function | expression;
+start: function | expression+;
 
 function: '(def)$' '([a-zA-Z_]+)$' '\(' argumentos '\)' '{' (expression)+ '}';
 argumentos: variable | variable ',' argumentos;
