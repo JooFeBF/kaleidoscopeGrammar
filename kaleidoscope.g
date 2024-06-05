@@ -1,6 +1,6 @@
 start: function | expression;
 
-function: 'def' '[^.]+' '\(' argumentos '\)' '{' (expression)+ '}';
+function: '(def)$' '([a-zA-Z_]+)$' '\(' argumentos '\)' '{' (expression)+ '}';
 argumentos: variable | variable ',' argumentos;
 expression: term | expression ('\+'|'-'| conjuncion | disyuncion) term;
 
