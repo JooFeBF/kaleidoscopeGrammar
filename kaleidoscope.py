@@ -38,6 +38,6 @@ if __name__ == '__main__':
         parser = plyplus.Grammar(grm)
         source = scode.read();
         t = parser.parse(source)
-        t.to_png_with_pydot(r"tree.png")
+        # t.to_png_with_pydot(r"tree.png")
         v = HVisitor()
         v.transform(t)

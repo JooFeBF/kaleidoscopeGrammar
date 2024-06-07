@@ -1,16 +1,16 @@
 start: program;
 
-program: (function | functioncall)+;
-function: 'def' funcname '\(' arguments? '\)' '{' (expression | conditionals)+ '}';
+program: (function | functioncall | classfunction)+;
+function: 'def' funcname '\(' arguments? '\)' '{' (expression | conditionals | classcall)+ '}';
+classfunction: 'clase' funcname '{' classbody+ '}';
 
 conditionals: 'condicional' '\(' expression '\)' '{' expression '}' ('else' '{' expression '}')?;
 
-
 arguments: argv | argv ',' arguments;
 callarguments: arguments | expression | expression ',' callarguments | arguments ',' callarguments;
-functioncall: variable '\(' callarguments? '\)';
-
-
+functioncall: funcname '\(' callarguments? '\)';
+classcall: 'nuevo' funcname '\(' callarguments? '\)';
+classbody: (variable '\.' variable '=' expression) | (variable '\.' variable '\(' callarguments? '\)') | (variable '\.' variable) | function | expression | conditionals;
 
 expression: negation expression | negativesign expression | term | (term | expression)  (operations | negativesign) (term | expression) | '\(' expression '\)';
 // list: '\'' '\(' term | term ',' | null ')';
