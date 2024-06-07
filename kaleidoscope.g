@@ -1,29 +1,30 @@
 start: program;
 
-program: ((function)+ | (expression)+)+;
+program: (function | functioncall)+;
+function: 'def' variable '\(' arguments? '\)' '{' (expression | conditionals)+ '}';
 
-function: define arg expr;
+conditionals: 'condicional' '\(' expression '\)' '{' expression '}' ('else' '{' expression '}')?;
 
-define: 'def';
 
-arg: name '\(' argumentos '\)';
+arguments: variable | variable ',' arguments;
+callarguments: arguments | expression | expression ',' callarguments | arguments ',' callarguments;
+functioncall: variable '\(' callarguments? '\)';
 
-expr: '{' (expression)+ '}';
 
-argumentos: variable | variable ',' argumentos;
-expression: term | expression ('\+'|'-'| conjuncion | disyuncion) term;
 
-term: factor | term '\*' factor | term '/' factor;
+expression: negation expression | negativesign expression | term | (term | expression)  (operations | negativesign) (term | expression) | '\(' expression '\)';
+// list: '\'' '\(' term | term ',' | null ')';
+term: positivenumber | floatnumber | variable | '\(' term '\)' | bool | functioncall; 
 
-factor: numeroentero | variable | bool | '-' factor | '¬' factor | '~' factor | '\(' expression '\)' | variable '\(' argumentos '\)' | '[{},\(\)]';
+operations: '[+/*]' | logic;
+negation: '~' | '¬';
+negativesign: '-';
+logic: '<' | '<=' | '==' | '>' | '>=' | '!=' | '&&' | '\|\|';
+variable: '\w+';
+floatnumber: positivenumber '\.' afterdotnumber;
+afterdotnumber: '\d+';
+positivenumber: '[0]|[1-9]\d*';
 bool: 'true' | 'false';
-conjuncion: '&&';
-disyuncion: '\|\|';
-negacion: '¬' | '~';
-numerononegativo: '[0]' | '[1-9][0-9]*';
-numeroentero: '[0]|(\-|\+)?[1-9][0-9]*';
-numeroflotante: '[0]|(\-|\+)?[1-9][0-9]*(\.)?[0-9]+';
-variable: '[a-zA-Z_\.][\w_]*';
-name: '[a-zA-Z_\.][\w_]*';
+null: 'nil';
 
 WS: '[ \t\r\n]+' (%ignore);

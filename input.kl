@@ -1,1 +1,6 @@
-def suma (x,y){x+y}
+def se (dos, tres) {
+  (2-3) - 3 + 34
+  condicional (true) { 2-3 } else { 3-2}
+}
+
+algo(2+pepe, pedro-2, -pedro, -2)
