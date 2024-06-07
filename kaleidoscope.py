@@ -22,6 +22,8 @@ class HVisitor(plyplus.STransformer):
     return expr.tail[0]
   def variable(self, expr):
     return expr.tail[0]
+  def negativesign(self, expr):
+    return expr.tail[0]
 
 
 

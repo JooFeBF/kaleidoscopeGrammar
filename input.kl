@@ -1,4 +1,4 @@
-def se (dos, tres) {
+def algo (dos, tres) {
   (2-3) - 3 + 34
   condicional (true) { 2-3 } else { 3-2}
 }
