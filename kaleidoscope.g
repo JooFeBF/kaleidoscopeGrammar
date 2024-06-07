@@ -1,12 +1,12 @@
 start: program;
 
 program: (function | functioncall)+;
-function: 'def' variable '\(' arguments? '\)' '{' (expression | conditionals)+ '}';
+function: 'def' funcname '\(' arguments? '\)' '{' (expression | conditionals)+ '}';
 
 conditionals: 'condicional' '\(' expression '\)' '{' expression '}' ('else' '{' expression '}')?;
 
 
-arguments: variable | variable ',' arguments;
+arguments: argv | argv ',' arguments;
 callarguments: arguments | expression | expression ',' callarguments | arguments ',' callarguments;
 functioncall: variable '\(' callarguments? '\)';
 
@@ -21,10 +21,14 @@ negation: '~' | '¬';
 negativesign: '-';
 logic: '<' | '<=' | '==' | '>' | '>=' | '!=' | '&&' | '\|\|';
 variable: '\w+';
+argv: '\w+';
+funcname: '\w+';
 floatnumber: positivenumber '\.' afterdotnumber;
 afterdotnumber: '\d+';
 positivenumber: '[0]|[1-9]\d*';
 bool: 'true' | 'false';
 null: 'nil';
+
+
 
 WS: '[ \t\r\n]+' (%ignore);
