@@ -1,22 +1,30 @@
 start: program;
 
-program: (function | functioncall | classfunction)+;
-function: 'def' funcname '\(' arguments? '\)' '{' (expression | conditionals | classcall)+ '}';
-classfunction: 'clase' funcname '{' classbody+ '}';
+program: (function | functioncall | class | expression | conditionals)+;
+function: 'def' funcname '\(' arguments? '\)' '{' (expression | conditionals | createobject | list | listoperations)+ '}';
+class: 'class' funcname '{' classbody+ '}';
 
-conditionals: 'condicional' '\(' expression '\)' '{' expression '}' ('else' '{' expression '}')?;
+conditionals: 'condicional' '\(' expression '\)' '{'  (expression | conditionals | createobject | list | listoperations)+ '}' ('else' '{'  (expression | conditionals | createobject | list | listoperations)+  '}')?;
 
+objectproperty: 'this.' variable '=' variable;
+funcconstructor:  'def' 'constructor' '\(' arguments? '\)' '{' objectproperty+ '}';
 arguments: argv | argv ',' arguments;
 callarguments: arguments | expression | expression ',' callarguments | arguments ',' callarguments;
 functioncall: funcname '\(' callarguments? '\)';
-classcall: 'nuevo' funcname '\(' callarguments? '\)';
-classbody: (variable '\.' variable '=' expression) | (variable '\.' variable '\(' callarguments? '\)') | (variable '\.' variable) | function | expression | conditionals;
+createobject: 'nuevo' funcname '\(' callarguments? '\)';
+classbody: funcconstructor;
 
 expression: negation expression | negativesign expression | term | (term | expression)  (operations | negativesign) (term | expression) | '\(' expression '\)';
-// list: '\'' '\(' term | term ',' | null ')';
+list: '\'' '\(' listbody '\)';
+listbody:  term | null | term ',' listbody | null ',' listbody;
 term: positivenumber | floatnumber | variable | '\(' term '\)' | bool | functioncall; 
+listoperations: car | cdr | empty;
 
-operations: '[+/*]' | logic;
+
+car: 'car' '\(' list '\)';
+cdr: 'cdr' '\(' list '\)';
+empty: 'empty' '\(' list '\)';
+operations: '[+/*%]' | logic;
 negation: '~' | '¬';
 negativesign: '-';
 logic: '<' | '<=' | '==' | '>' | '>=' | '!=' | '&&' | '\|\|';
@@ -30,5 +38,5 @@ bool: 'true' | 'false';
 null: 'nil';
 
 
-
+COMMENT: '/\*' '.*' '\*/'  (%ignore);
 WS: '[ \t\r\n]+' (%ignore);
