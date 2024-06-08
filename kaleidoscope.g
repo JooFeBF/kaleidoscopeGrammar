@@ -8,13 +8,16 @@ conditionals: 'condicional' '\(' expression '\)' '{'  (expression | conditionals
 
 objectproperty: 'this.' variable '=' variable;
 funcconstructor:  'def' 'constructor' '\(' arguments? '\)' '{' objectproperty+ '}';
-arguments: argv | argv ',' arguments;
+separatedargument: arguments;
+arguments: argv | argv ',' separatedargument;
+separatedcallarguments: callarguments;
 callarguments: arguments | expression | expression ',' callarguments | arguments ',' callarguments;
 functioncall: funcname '\(' callarguments? '\)';
 createobject: 'nuevo' funcname '\(' callarguments? '\)';
 classbody: funcconstructor;
 
-expression: negation expression | negativesign expression | term | (term | expression)  (operations | negativesign) (term | expression) | '\(' expression '\)';
+expressions: expression;
+expression: negation expressions | negativesign expressions | term | (term | expressions)  (operations | negativesign) (term | expressions) | '\(' expressions '\)';
 list: '\'' '\(' listbody '\)';
 listbody:  term | null | term ',' listbody | null ',' listbody;
 term: positivenumber | floatnumber | variable | '\(' term '\)' | bool | functioncall; 
