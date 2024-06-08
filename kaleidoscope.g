@@ -1,26 +1,27 @@
 start: program;
 
-program: (function | functioncall | class | expression | conditionals)+;
-function: 'def' funcname '\(' arguments? '\)' '{' (expression | conditionals | createobject | list | listoperations)+ '}';
+program: (function | functioncall | class | expressions | conditionals)+;
+function: 'def' funcname '\(' separatedargument? '\)' '{' (expressions | conditionals | createobject | list | listoperations)+ '}';
 class: 'class' funcname '{' classbody+ '}';
 
-conditionals: 'condicional' '\(' expression '\)' '{'  (expression | conditionals | createobject | list | listoperations)+ '}' ('else' '{'  (expression | conditionals | createobject | list | listoperations)+  '}')?;
+conditionals: 'condicional' '\(' expressions '\)' '{'  (expressions | conditionals | createobject | list | listoperations)+ '}' ('else' '{'  (expressions | conditionals | createobject | list | listoperations)+  '}')?;
 
 objectproperty: 'this.' variable '=' variable;
-funcconstructor:  'def' 'constructor' '\(' arguments? '\)' '{' objectproperty+ '}';
+funcconstructor:  'def' 'constructor' '\(' separatedargument? '\)' '{' objectproperty+ '}';
 separatedargument: arguments;
-arguments: argv | argv ',' separatedargument;
+arguments: argv | argv comma arguments;
 separatedcallarguments: callarguments;
-callarguments: arguments | expression | expression ',' callarguments | arguments ',' callarguments;
-functioncall: funcname '\(' callarguments? '\)';
-createobject: 'nuevo' funcname '\(' callarguments? '\)';
+callarguments: arguments | expression | expression comma callarguments | arguments comma callarguments;
+functioncall: funcname '\(' separatedcallarguments? '\)';
+createobject: 'nuevo' funcname '\(' separatedcallarguments? '\)';
 classbody: funcconstructor;
 
 expressions: expression;
-expression: negation expressions | negativesign expressions | term | (term | expressions)  (operations | negativesign) (term | expressions) | '\(' expressions '\)';
+expression: negation expression | negativesign expression | term | (term | expression)  (operations | negativesign) (term | expression) | openparenthesis expression closeparenthesis;
 list: '\'' '\(' listbody '\)';
-listbody:  term | null | term ',' listbody | null ',' listbody;
-term: positivenumber | floatnumber | variable | '\(' term '\)' | bool | functioncall; 
+listbody:  term | null | term comma listbody | null comma listbody;
+term: positivenumber | floatnumber | variable | openparenthesis termsepareted closeparenthesis | bool | functioncall; 
+termsepareted: term;
 listoperations: car | cdr | empty;
 
 
@@ -39,7 +40,9 @@ afterdotnumber: '\d+';
 positivenumber: '[0]|[1-9]\d*';
 bool: 'true' | 'false';
 null: 'nil';
-
+openparenthesis: '\(';
+closeparenthesis:  '\)';
+comma: ',';
 
 COMMENT: '/\*' '.*' '\*/'  (%ignore);
 WS: '[ \t\r\n]+' (%ignore);
