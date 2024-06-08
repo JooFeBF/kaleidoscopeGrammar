@@ -1,11 +1,11 @@
 start: program;
 
 program: (function | functioncall | class | expressions | conditionals)+;
-function: 'def' funcname '\(' separatedargument? '\)' '{' (expressions | conditionals | createobject | list | listoperations)+ '}';
+function: 'def' funcname '\(' separatedargument? '\)' '{' (expressions | conditionals | createobject | listoperations)+ '}';
 class: 'class' funcname '{' classbody+ '}';
 
-conditionals: 'condicional' '\(' expressions '\)' '{'  (expressions | conditionals | createobject | list | listoperations)+ '}' ('else' '{'  (expressions | conditionals | createobject | list | listoperations)+  '}')?;
-
+conditionals: 'condicional' '\(' expressions '\)' '{'  (expressions | conditionals | createobject  | listoperations)+ '}' elseconditional?;
+elseconditional:  'else' '{'  (expressions | conditionals | createobject | list | listoperations)+  '}';
 objectproperty: 'this.' variable '=' variable;
 funcconstructor:  'def' 'constructor' '\(' separatedargument? '\)' '{' objectproperty+ '}';
 separatedargument: arguments;
@@ -20,8 +20,7 @@ expressions: expression;
 expression: negation expression | negativesign expression | term | (term | expression)  (operations | negativesign) (term | expression) | openparenthesis expression closeparenthesis;
 list: '\'' '\(' listbody '\)';
 listbody:  term | null | term comma listbody | null comma listbody;
-term: positivenumber | floatnumber | variable | openparenthesis termsepareted closeparenthesis | bool | functioncall; 
-termsepareted: term;
+term: positivenumber | floatnumber | variable | bool | functioncall; 
 listoperations: car | cdr | empty;
 
 
