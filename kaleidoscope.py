@@ -7,27 +7,7 @@ class HVisitor(plyplus.STransformer):
     self.output = []
   def program(self, expr):
     print(expr)
-  def function(self, expr):
-    #print(expr.tail)
-    return expr.tail
-  def expression(self, expr):
-    return expr.tail
-  def operations(self, expr):
-    return expr.tail[0]
-  def term(self, expr):
-    return expr.tail[0]
-  def positivenumber(self, expr):
-    return expr.tail[0]
-  def bool(self, expr):
-    return expr.tail[0]
-  def variable(self, expr):
-    return expr.tail[0]
-  def negativesign(self, expr):
-    return expr.tail[0]
-  def funcname(self, expr):
-    return expr.tail[0]
-  def argv(self, expr):
-    return expr.tail[0]
+  
 
 
 

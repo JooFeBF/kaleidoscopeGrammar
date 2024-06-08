@@ -1,2 +1,15 @@
-/* (5 % 3) + 3 / 2 */
-5 + 3
+class hola{
+  def constructor(a, b){
+    this.a = a
+    this.b = b
+  }
+}
+
+def algo (dos, tres) {
+  (2-3) - 3 + 34
+  condicional (true) { 2-3 } else { 3-2}
+  nuevo hola(2, 3)
+  '(1, 2, 3)
+}
+
+algo(2+pepe, pedro-2, -pedro, -2)
